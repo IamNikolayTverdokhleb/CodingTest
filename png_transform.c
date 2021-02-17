@@ -157,9 +157,11 @@ process_file(struct decoded_image *img)
 {
 	printf("Checking PNG format\n");
 
-	if (png_get_color_type(img->png_ptr, img->info_ptr) != PNG_COLOR_TYPE_RGBA)
-		printf("[process_file] color_type of input file must be PNG_COLOR_TYPE_RGBA (%d) (is %d)", PNG_COLOR_TYPE_RGBA, png_get_color_type(img->png_ptr, img->info_ptr));
-		return 1;
+	if (png_get_color_type(img->png_ptr, img->info_ptr) != PNG_COLOR_TYPE_RGBA){
+        printf("[process_file] color_type of input file must be PNG_COLOR_TYPE_RGBA (%d) (is %d)", PNG_COLOR_TYPE_RGBA, png_get_color_type(img->png_ptr, img->info_ptr));
+        return 1;
+	}
+
 
 	printf("Starting processing\n");
 	for (x = 0; x < img->w; x++)
@@ -189,22 +191,23 @@ process_file(struct decoded_image *img)
 }
 
 
-
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	if (argc != 3)
-		abort_("Usage: program_name <file_in> <file_out>");
+    if (argc != 3)
+        abort_("Usage: program_name <file_in> <file_out>");
 
-	struct decoded_image *img = malloc(sizeof(struct decoded_image));
+    struct decoded_image *img = malloc(sizeof(struct decoded_image));
 
-	printf("Reading input PNG\n");
-	read_png_file(argv[1], img);
+    printf("Reading input PNG\n");
+    read_png_file(argv[1], img);
 
-	process_file(img);
+    int res = process_file(img);
+    printf("Result of processing: %d\n", res);
+    printf("Writing output PNG\n");
+    write_png_file(argv[2], img);
 
-	printf("Writing output PNG\n");
-	write_png_file(argv[2], img);
-
-	return 0;
+    return 0;
 }
+
+
+
