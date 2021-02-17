@@ -1,0 +1,62 @@
+INTRODUCTION
+------------
+As candidate for a developer job in Kalray, we propose you a simple coding test.
+
+This test is meant to test your ability to:
+
+* Write code using best practices
+* Code architecture
+* Debug ( :-) )
+* Development tools usage
+
+In the archive, you will find :
+
+* png\_transform.c :
+   * main program that transforms a png. It sets red value to 0 and green value to the blue one.
+   * It has been written by multiple contributors over time.
+* imgs: a folder containing test pngs.
+* test.sh : basic test that compares results with golden copy for the first transformation
+* golden :
+	* golden copies of images with the first transformation applied
+	* Files ending with Rx1.2\_Gx0.8\_Bx0.8.png : result of the weighted transformation with Red = 1.2 Green = 0.8 Blue = 0.8
+
+Environment: Yours !
+(except dependencies on libpng (>=1.6) and imagemagick)
+
+EXERCISE
+--------
+During this exercise, we would like you to do some basic improvements over the existing code:
+
+* Debug the existing transformation:
+	* We haven't been able to convert an image using the program. For some reason, the images are never transformed :-(.
+	* Once, a colleague succeeded in running it but noticed some segfaults, can you investigate ?
+
+* Add a new transformation:
+	* On each RGB channel user can give color weight as an argument.
+	* For instance, if the user gives 0.5 for red, 0.8 for green and 1 for blue,
+		  these values must be applied on each channel independently.
+	* The choice between the transformations must be done at start-up using parameters.
+	* The old transformation should remain available and functional.
+
+* Performance analysis (optional):
+	* On huge pictures, it seems that our algorithm is rather sub-optimal, can you improve it ?
+
+
+EVALUATION CRITERIA
+-------------------
+In your decision-making, please consider that you will be EVALUETED on the following:
+
+* Functionality/Testing: Are the new and the old transformation correct ? How can you prove it to us ?
+* Extensibility: Is it easy to add another transformation ? Is the design clean enough to add another 10000 transformations ?
+* Reusability: Another developer can understand, build, run and easily add a new functionality
+
+EXPECTED RESULT
+---------------
+The result must include the following :
+
+* Final source code which should compile and run on Linux (any distro with libpng >=1.6)
+* Modification history (You are free to use any versioning system (git, svn, cvs...))
+* Build automation (You are free to use any building system (makefile, Cmake, bash...)
+* A small report (txt, md...) on your debug steps
+
+Good luck !
